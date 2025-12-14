@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+  --color-autumn-leaves-1: #ffb344;
+  --color-autumn-leaves-2: #db9b3a;
+  --color-autumn-leaves-3: #b37e2e;
+  --color-autumn-leaves-4: #61441a;
+
+  --color-autumn-compliment-dark: #c7691c;
+
+  --font-ZalandoSansExpanded: "Zalando Sans Expanded", sans-serif;
+}
+
+:root {
+    background-color: #ffffff;
+}
+
