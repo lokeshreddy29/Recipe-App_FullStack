@@ -2,7 +2,7 @@
 
 function Home() {
     return (
-        <div>
+        <div className="font-ZalandoSansExpanded">
             Welcome to Recipe Raster
         </div>
     )

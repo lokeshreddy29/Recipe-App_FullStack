@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router"
 import Navigation from "./components/Navigation"
 import LoginPage from "./components/LoginPage"
 import Home from "./components/HomePage"
-import './styles/styles.css'
 
 function App() {
   return (
