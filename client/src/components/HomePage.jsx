@@ -1,8 +1,9 @@
 
 
 function Home() {
+    document.body.style.backgroundColor = 'white';
     return (
-        <div className="font-ZalandoSansExpanded">
+        <div className="font-ZalandoSansExpanded pt-20">
             Welcome to Recipe Raster
         </div>
     )

@@ -1,10 +1,10 @@
 import { Link, NavLink } from "react-router"
+import "../styles/styles.css"
 
 function Navigation() {
   return (
-    <nav>
+    <nav id="navbar">
       <div className="h-16 bg-autumn-leaves-1 flex justify-between items-center p-5 font-ZalandoSansExpanded font-normal">
-
         {/* Logo */}
         <Link to="/">
           <h1 className="text-3xl font-medium cursor:pointer">Recipe HUB</h1>
@@ -27,14 +27,15 @@ function Navigation() {
               Login
             </button>
           </Link>
-          <button
-            className="h-10 w-20 cursor-pointer text-white text-md rounded-md bg-autumn-leaves-3
+          <Link to='/signup'>
+            <button
+              className="h-10 w-20 cursor-pointer text-white text-md rounded-md bg-autumn-leaves-3
             transition duration-300 ease-in-out hover:bg-white hover:text-autumn-compliment-dark"
-          >
-            Signup
-          </button>
+            >
+              Signup
+            </button>
+          </Link>
         </div>
-
       </div>
     </nav>
   )
