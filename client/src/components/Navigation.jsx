@@ -7,7 +7,7 @@ function Navigation() {
       <div className="h-16 bg-autumn-leaves-1 flex justify-between items-center p-5 font-ZalandoSansExpanded font-normal">
         {/* Logo */}
         <Link to="/">
-          <h1 className="text-3xl font-medium cursor:pointer">Recipe HUB</h1>
+          <h1 className="text-3xl text-white font-medium cursor:pointer">Recipe HUB</h1>
         </Link>
 
         {/* Search Input field */}

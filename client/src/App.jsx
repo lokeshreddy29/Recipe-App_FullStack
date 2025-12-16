@@ -1,8 +1,11 @@
 import { Route, Routes, useLocation } from "react-router"
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import Navigation from "./components/Navigation"
 import LoginPage from "./components/LoginPage"
 import Home from "./components/HomePage"
 import SignUp from "./components/SignupPage"
+
+const queryClient = new QueryClient()
 
 function App() {
   const location = useLocation()
@@ -14,7 +17,7 @@ function App() {
       <Routes>
         <Route index element={<Home />} />
         <Route path='/login' element={<LoginPage />}/>
-        <Route path='/signup' element={<SignUp />}/>
+        <Route path='/signup' element={<QueryClientProvider client={queryClient}> <SignUp /> </QueryClientProvider>}/>
       </Routes>
     </div>
   )
