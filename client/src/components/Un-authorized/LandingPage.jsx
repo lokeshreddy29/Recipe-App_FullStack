@@ -1,6 +1,6 @@
 
 
-function Home() {
+function Landing() {
     document.body.style.backgroundColor = 'white';
     return (
         <div className="font-ZalandoSansExpanded pt-20">
@@ -9,4 +9,4 @@ function Home() {
     )
 }
 
-export default Home
+export default Landing

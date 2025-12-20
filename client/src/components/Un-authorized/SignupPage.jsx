@@ -5,21 +5,16 @@ import { useState } from "react"
 function SignUp() {
   const api_base = "http://localhost:3000"
 
-  // const mutation = useMutation({
-  //   mutationFn: () =>
-  //     fetch("http://localhost:3000/api/users").then((r) => r.json()),
-  // })
-
   const { mutateAsync, isError, error } = useMutation({
     mutationFn: async (user) => {
-      const res = await fetch(api_base + "/auth/createAccount", {
+      const signUpResponse = await fetch(api_base + "/auth/createAccount", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
       })
 
-      if (!res.ok) {
-        const err = await res.json()
+      if (!signUpResponse.ok) {
+        const err = await signUpResponse.json()
         throw new Error(err.message)
       }
     },
@@ -27,12 +22,12 @@ function SignUp() {
 
   const handleFormData = (event) => {
     event.preventDefault()
-    const userObject = {}
+    const signUpCreds = {}
     const formData = new FormData(event.target)
     for (let [key, value] of formData.entries()) {
-      userObject[key] = value
+      signUpCreds[key] = value
     }
-    mutateAsync(userObject)
+    mutateAsync(signUpCreds)
   }
 
   return (

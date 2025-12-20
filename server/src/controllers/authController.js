@@ -1,19 +1,19 @@
 import authServices from "../services/authServices.js"
 
 const createAccount = async (req, res) => {
-  console.log("method:", req.method)
-  console.log("headers:", req.headers["content-type"])
-  console.log("body:", req.body)
-
   const { name, email, password } = req.body
-  const serviceResponse = await authServices.createAccount({ name, email, password })
+  const createAccountServiceResponse = await authServices.createAccount({ name, email, password })
 
-  if(serviceResponse === null) {
-    res.status(409).json({message: 'user already exists'})
-  }
-  if(serviceResponse === "created") {
-    res.status(201).send('user created')
-  }
+  if(createAccountServiceResponse === null) res.status(409).json({ message: 'user already exists' })
+  if(createAccountServiceResponse) res.status(201).json({ accessToken: createAccountServiceResponse })
 }
 
-export default { createAccount }
+const signIn = async (req, res) => {
+  const { email, password } = req.body
+  const signInServiceResponse = await authServices.signIn({ email, password })
+
+  if(signInServiceResponse.status === 401) res.status(401).json({ message: 'incorrect credentials' })
+  res.status(200).json({ accessToken: signInServiceResponse })
+}
+
+export default { createAccount, signIn }
