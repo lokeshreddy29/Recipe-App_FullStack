@@ -1,9 +1,12 @@
-import { Link } from "react-router"
-import { useMutation, useQuery } from "@tanstack/react-query"
-import { useState } from "react"
+import { Link, useNavigate } from "react-router"
+import { useMutation } from "@tanstack/react-query"
+import { useDispatch } from "react-redux"
+import { addUserDetailsToRedux } from "../../Redux/Slices/authSlice"
 
 function SignUp() {
   const api_base = "http://localhost:3000"
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const { mutateAsync, isError, error } = useMutation({
     mutationFn: async (user) => {
@@ -16,6 +19,10 @@ function SignUp() {
       if (!signUpResponse.ok) {
         const err = await signUpResponse.json()
         throw new Error(err.message)
+      } else {
+        const response = await signUpResponse.json()
+        dispatch(addUserDetailsToRedux(response))
+        navigate("/home")
       }
     },
   })

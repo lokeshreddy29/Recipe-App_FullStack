@@ -22,22 +22,35 @@ const createAccount = async ({ name, email, password }) => {
       },
     })
 
+    const userID = await prisma.user.findUnique({
+      select: {
+        id: true,
+      },
+      where : {
+        email: email,
+      },
+    })
+
     const privateKey = await jose.importPKCS8(
       process.env.JWT_PRIVATE_KEY,
       "ES256"
     )
-    const AccessToken = await new jose.SignJWT({
+    const accessToken = await new jose.SignJWT({
       email: email,
-      name: name,
+      id: userID,
     })
       .setProtectedHeader({ alg: "ES256" })
       .setIssuedAt()
       .setIssuer("urn:example:issuer")
       .setAudience("urn:example:audience")
-      .setExpirationTime("2h")
+      .setExpirationTime("15 minutes")
       .sign(privateKey)
 
-    return AccessToken
+    return {
+      UserName: name,
+      UserID: userID,
+      AccessToken: accessToken,
+    }
 
   } catch (err) {
     return err
@@ -46,18 +59,13 @@ const createAccount = async ({ name, email, password }) => {
 
 const signIn = async ({ email, password }) => {
   try {
-    const doesUserExist = await prisma.user.findUnique({
-      where: {
-        email: email,
-      },
-    })
-    if (!doesUserExist) return {status: 401, message: "Incorrect credentials"}
-
+    
     const userDetails = await prisma.user.findUnique({
       where: {
         email: email,
       },
     })
+    if (!userDetails) return {status: 401, message: "Incorrect credentials"}
 
     const passwordValidation = bcrypt.compareSync(
       password,
@@ -69,7 +77,7 @@ const signIn = async ({ email, password }) => {
       process.env.JWT_PRIVATE_KEY,
       "ES256"
     )
-    const AccessToken = await new jose.SignJWT({
+    const accessToken = await new jose.SignJWT({
       email: email,
       id: userDetails.id,
     })
@@ -77,10 +85,14 @@ const signIn = async ({ email, password }) => {
       .setIssuedAt()
       .setIssuer("urn:example:issuer")
       .setAudience("urn:example:audience")
-      .setExpirationTime("2h")
+      .setExpirationTime("15 minutes")
       .sign(privateKey)
 
-    return AccessToken
+    return {
+      UserName: userDetails.name,
+      UserID: userDetails.id,
+      AccessToken: accessToken,
+    }
   } catch (err) {
     return err
   }

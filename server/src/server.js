@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-import userRoutes from './routes/userRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import apiRoutes from './routes/apiRoutes.js'
 import * as jose from 'jose'
 
 const app = express()
@@ -13,9 +13,15 @@ app.use(cors({
   credentials: true,
 }))
 app.use(express.json())
+//
 
 //Routes
 app.use('/auth', authRoutes)
+app.use('/api', apiRoutes)
+//
+
+
+
 
 app.listen(PORT, () => {
   console.log(`app has begun on port ${PORT}`)
@@ -72,11 +78,12 @@ const jwt = await new jose.SignJWT({ email: 'lokeshr3ddy@gmail.com' })
 
 // console.log(jwt)
 
+const jwt2 = 'eyJhbGciOiJFUzI1NiJ9.eyJlbWFpbCI6Imxva2VzaHIzZGR5QGdtYWlsLmNvbSIsImlkIjoxNjYsImlhdCI6MTc2NjI5NTc0OSwiaXNzIjoidXJuOmV4YW1wbGU6aXNzdWVyIiwiYXVkIjoidXJuOmV4YW1wbGU6YXVkaWVuY2UiLCJleHAiOjE3NjYzMDI5NDl9.BfZri2QvxUst7lX0OAFknPo6o_4ifJibjKRj8gZvTHY8BAh9PgJlYob4RByp1_jKT7jrUGG5Fb_aMR6zxnhqMw'
 
-const { payload, protectedHeader, error } = await jose.jwtVerify(jwt, publicKey, {
-  issuer: 'urn:example:issuer',
-  audience: 'urn:example:audience',
-})
+// const { payload, protectedHeader, error } = await jose.jwtVerify(jwt2, publicKey, {
+//   issuer: 'urn:example:issuer',
+//   audience: 'urn:example:audience',
+// })
 
 // console.log(payload)
 // console.log(protectedHeader)

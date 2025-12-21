@@ -1,11 +1,14 @@
 import { useMutation } from "@tanstack/react-query"
-import { Link, Navigate, useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
+import { useDispatch } from "react-redux"
+import { addUserDetailsToRedux } from "../../Redux/Slices/authSlice"
 
-function LoginPage({ setAccess }) {
+function LoginPage() {
   const api_base = "http://localhost:3000"
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const { mutateAsync, isError, error } = useMutation({
+  const { mutateAsync, isError, error, data } = useMutation({
     mutationFn: async (loginCreds) => {
       const signInResponse = await fetch(api_base + "/auth/signIn", {
         method: "POST",
@@ -18,8 +21,8 @@ function LoginPage({ setAccess }) {
         throw new Error(err.message)
       } else {
         const response = await signInResponse.json()
-        setAccess(response.accessToken)
-        navigate("/dashboard")
+        dispatch(addUserDetailsToRedux(response))
+        navigate("/home")
       }
     },
   })
@@ -32,6 +35,7 @@ function LoginPage({ setAccess }) {
       loginCreds[key] = value
     }
     mutateAsync(loginCreds)
+    console.log("data" + data)
   }
 
   return (
@@ -68,7 +72,7 @@ function LoginPage({ setAccess }) {
                 type="checkbox"
                 className="accent-autumn-leaves-1"
               />
-              <label for="remember-me" className="text-black text-sm">
+              <label htmlFor="remember-me" className="text-black text-sm">
                 Remember me
               </label>
             </div>
@@ -102,7 +106,7 @@ function LoginPage({ setAccess }) {
             </Link>
           </div>
           <div className="flex flex-col items-center">
-            <Link to="/">
+            <Link to="/home">
               {" "}
               <button className="text-sm font-normal text-autumn-leaves-1 cursor-pointer ">
                 Explore without an account

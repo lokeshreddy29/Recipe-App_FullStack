@@ -13,7 +13,7 @@ const signIn = async (req, res) => {
   const signInServiceResponse = await authServices.signIn({ email, password })
 
   if(signInServiceResponse.status === 401) res.status(401).json({ message: 'incorrect credentials' })
-  res.status(200).json({ accessToken: signInServiceResponse })
+  res.status(200).json(signInServiceResponse)
 }
 
 export default { createAccount, signIn }
