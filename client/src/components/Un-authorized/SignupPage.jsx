@@ -22,7 +22,7 @@ function SignUp() {
       } else {
         const response = await signUpResponse.json()
         dispatch(addUserDetailsToRedux(response))
-        navigate("/home")
+        navigate("/")
       }
     },
   })
@@ -96,7 +96,7 @@ function SignUp() {
 
             <div className="flex flex-col items-center">
               <p className="text-sm">Already have an account?</p>
-              <Link to="/login">
+              <Link to="/">
                 {" "}
                 <button className="text-md font-medium text-autumn-leaves-1 cursor-pointer ">
                   Sign In

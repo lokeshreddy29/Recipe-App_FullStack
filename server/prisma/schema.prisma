@@ -23,12 +23,12 @@ model User {
 }
 
 model Recipe {
-  id                    Int @id
-  recipeName            String
+  idMeal                Int @id
+  strMeal               String
   recipeIngredients     String
   recipeMeasurements    String
-  recipeInstructions    String
-  recipeImage           String?
+  strInstructions       String
+  strMealThumb          String?
   recipeCategory        String?
   userRecipeBool        Boolean @default(false)
   userID                Int

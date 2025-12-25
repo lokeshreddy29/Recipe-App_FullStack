@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
 @import "tailwindcss";
-
+@config "../tailwind.config.js";
 
 @theme {
   --color-autumn-leaves-1: #ffb344;
@@ -11,6 +11,7 @@
   --color-autumn-leaves-light-1: #fff2e0;
 
   --color-autumn-compliment-dark: #c7691c;
+  --color-autumn-compliment-blue: #4490FF;
 
   --font-ZalandoSansExpanded: "Zalando Sans Expanded", sans-serif;
 }

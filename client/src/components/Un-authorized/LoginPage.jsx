@@ -22,7 +22,7 @@ function LoginPage() {
       } else {
         const response = await signInResponse.json()
         dispatch(addUserDetailsToRedux(response))
-        navigate("/home")
+        navigate("/")
       }
     },
   })
@@ -106,7 +106,7 @@ function LoginPage() {
             </Link>
           </div>
           <div className="flex flex-col items-center">
-            <Link to="/home">
+            <Link to="/">
               {" "}
               <button className="text-sm font-normal text-autumn-leaves-1 cursor-pointer ">
                 Explore without an account

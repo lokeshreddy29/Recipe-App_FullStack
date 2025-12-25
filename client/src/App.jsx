@@ -1,8 +1,8 @@
 import { Route, Routes, useLocation } from "react-router"
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { decodeJwt } from 'jose'
 import { useSelector, useDispatch } from "react-redux"
 import { clearAccessInRedux } from "./Redux/Slices/authSlice"
+import { useState } from "react"
 import Navigation from "./components/Un-authorized/Navigation"
 import ANavigation from "./components/Authorized/ANavigation"
 import LoginPage from "./components/Un-authorized/LoginPage"
@@ -12,14 +12,17 @@ import Dashboard from "./components/Authorized/Dashboard"
 import ProtectedRoutes from "./utils/ProtectedRoutes"
 import Home from "./components/Authorized/HomePage"
 import MyRecipes from "./components/Authorized/RecipeComponents/MyRecipes"
+import RecipeDetails from "./components/Authorized/RecipeComponents/RecipeDetails"
+import RecipeSearchResults from "./components/Authorized/RecipeComponents/RecipeSearchResults"
 
-const queryClient = new QueryClient()
 
 function App() {
   const location = useLocation()
   const isAuthRoute = location.pathname === '/login' || location.pathname === '/signup'
   const authState = useSelector((state) => state.auth)
   const dispatch = useDispatch()
+
+  const [searchTriggered, setsearchTriggered] = useState(true)
 
   // handling global logout
   if(authState.userDets) {
@@ -36,17 +39,18 @@ function App() {
   
   return (
     <div className={`min-h-screen ${isAuthRoute ? 'bg-autumn-leaves-1' : 'bg-white'}`}>
-      {!isAuthRoute && !authState.authDone ? (<Navigation />) : null}
-      {!isAuthRoute && authState.authDone ? (<QueryClientProvider client={queryClient}> <ANavigation /> </QueryClientProvider>) : null}
+      {!isAuthRoute && !authState.authDone ? (<Navigation className="scroll-auto" searchTriggered={searchTriggered} setsearchTriggered={setsearchTriggered} />) : null}
+      {!isAuthRoute && authState.authDone ? (<ANavigation searchTriggered={searchTriggered} setsearchTriggered={setsearchTriggered} />) : null}
       {/* {console.log("rdx" + JSON.stringify(authState.userDets))} */}
       <Routes>
-        <Route index element={<Landing />} />
-        <Route path='/login' element={<QueryClientProvider client={queryClient}> <LoginPage /> </QueryClientProvider>} />
-        <Route path='/signup' element={<QueryClientProvider client={queryClient}> <SignUp /> </QueryClientProvider>} />
-        <Route path='/home' element={<Home />} />
+        <Route index element={<Home />} />
+        <Route path='/login' element={<LoginPage /> } />
+        <Route path='/signup' element={<SignUp /> } />
+        <Route path='/recipedetails/:mealid' element={<RecipeDetails />} />
+        <Route path='/recipesearchresults/:searchquery' element={<RecipeSearchResults />} />
         <Route element={<ProtectedRoutes />}>
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/myrecipes' element={<QueryClientProvider client={queryClient}> <MyRecipes /> </QueryClientProvider>} />
+          <Route path='/myrecipes' element={<MyRecipes /> } />
         </Route>
       </Routes>
     </div>
