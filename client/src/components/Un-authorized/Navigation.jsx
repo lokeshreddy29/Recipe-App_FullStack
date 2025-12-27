@@ -83,6 +83,7 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
                 name="searchQuery"
                 placeholder="Search for recipes"
                 className="outline-none"
+                required
               />
             </div>
             <div

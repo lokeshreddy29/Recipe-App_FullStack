@@ -26,7 +26,8 @@ const MyRecipes = () => {
   }, [data])
   //
 
-  // logic to get meal id's of community recipes
+  // logic to get meal id's of community recipes. 
+  // We are first filtering all the meals that are not user's and then mapping over them to get their id's
   const communityRecipeIds = useMemo(() => {
     if (!data) return []
 
@@ -85,7 +86,7 @@ const MyRecipes = () => {
         >
           <h1 className="text-3xl mb-10">Community Recipes</h1>
           <div className="flex flex-wrap space-x-10 space-y-10 scale-100">
-            {recipesisLoading && communityRecipeCount ? (
+            {isLoading || recipesisLoading || !communityRecipeCount ? (
               "loading"
             ) : communityRecipeCount ? (
               recipesData?.map((item, i) =>

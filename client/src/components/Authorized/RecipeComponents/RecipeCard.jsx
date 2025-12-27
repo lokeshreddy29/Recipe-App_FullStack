@@ -23,7 +23,7 @@ const RecipeCard = ({ meal }) => {
                 <div id="title-type-container" className="h-10 flex justify-between px-4 pt-3 overflow-hidden">
                     <h1 className="w-70 text-xl text-autumn-leaves-2 font-medium overflow-hidden">{meal.strMeal}</h1>
                     <ul className="list-disc">
-                        <li className={`text-3xl ${recipeType === 'veg' ? "text-green-500" : "text-red-600"}`}> </li>
+                        <li className={`text-3xl ${meal.recipeCategory === 'veg' || !meal.recipeCategory ? "text-green-500" : "text-red-600"}`}> </li>
                     </ul>
                 </div>
                 <div id="details-container" className="flex flex-col text-[11px] px-4 items-center">
