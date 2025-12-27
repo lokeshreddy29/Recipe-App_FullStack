@@ -25,9 +25,9 @@ model User {
 model Recipe {
   idMeal                Int @id
   strMeal               String
-  recipeIngredients     String
-  recipeMeasurements    String
-  strInstructions       String
+  recipeIngredients     String?
+  recipeMeasurements    String?
+  strInstructions       String?
   strMealThumb          String?
   recipeCategory        String?
   userRecipeBool        Boolean @default(false)

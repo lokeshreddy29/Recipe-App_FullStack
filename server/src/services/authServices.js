@@ -85,7 +85,7 @@ const signIn = async ({ email, password }) => {
       .setIssuedAt()
       .setIssuer("urn:example:issuer")
       .setAudience("urn:example:audience")
-      .setExpirationTime("15 minutes")
+      .setExpirationTime("15 Minutes")
       .sign(privateKey)
 
     return {

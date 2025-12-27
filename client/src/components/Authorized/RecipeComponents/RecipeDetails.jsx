@@ -1,5 +1,7 @@
 import { useEffect } from "react"
 import { useLocation, useParams } from "react-router"
+import useRecipeSave from '../../../Hooks/useRecipeSave'
+import { useState } from "react"
 
 const RecipeDetails = () => {
   const location = useLocation()
@@ -8,11 +10,18 @@ const RecipeDetails = () => {
   const mealIdFromUrl = params.mealid
   const xCoord = 0
   const yCoord = 0
+  
+  // custom hooks
+  const { mutateAsync } = useRecipeSave()
+  //
 
+  // side effects
   useEffect(() => {
     window.scrollTo(xCoord, yCoord)
   }, [])
+  //
 
+  // logic to separate instructions text into separate steps
   const iList = []
   for (let i = 1; i <= 20; i++) {
     const iKey = "strIngredient" + i
@@ -22,18 +31,33 @@ const RecipeDetails = () => {
 
   const instructionList = []
   instructionList.push(meal.strInstructions.split("\r\n"))
+  //
+
+  // logic to handle recipe saving when user clicks on save
+  const handleRecipeSave = () => {
+    const mealInfoUpdate = {
+      mealId: mealIdFromUrl,
+      mealName: meal.strMeal,
+    }
+
+    mutateAsync({
+      mealId: mealIdFromUrl,
+      mealName: meal.strMeal,
+    })
+  }
+  //
 
   return (
     <div className="mt-30 mb-10 text-autumn-leaves-4">
       {/* {console.log(instructionList[0])} */}
       <div className="flex flex-col justify-center items-center h-40 bg-autumn-leaves-1 rounded-2xl my-5 mx-20">
         <h1 className="text-lg">
-          If you like this recipe you can save it. You can find saved recipes
-          under the community recipes section
+          If you like this recipe, you can save it. You can find saved recipes
+          under the 'Community Recipes' section in My Recipes
         </h1>
-        <button
-          className="h-15 p-3 mt-5 bg-white rounded-full cursor-pointer text-xl
-        transition duration-200 ease-in-out hover:bg-autumn-leaves-3 hover:text-white"
+        <button onClick={handleRecipeSave}
+        className="h-15 p-3 mt-5 bg-white rounded-full cursor-pointer text-xl shadow-lg
+        transition duration-200 ease-in-out hover:bg-autumn-leaves-3 hover:text-white hover:shadow-none"
         >
           Save this Recipe
         </button>

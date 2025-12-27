@@ -78,7 +78,7 @@ function ANavigation({ searchTriggered, setsearchTriggered }) {
           <input
             name="searchQuery"
             className={`h-10 w-100 rounded-sm md:block hidden placeholder: p-4 
-            transition suration-300 ease-in-out focus:outline-none focus:ring-1
+            transition ease-in-out focus:outline-none focus:ring-1
             ${isRecipePage? "bg-autumn-leaves-1 focus:ring-autumn-compliment-dark" : "bg-autumn-leaves-2 focus:ring-white" }`}
             placeholder="Search for recipes"
           />

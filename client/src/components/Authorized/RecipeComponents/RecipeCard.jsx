@@ -2,18 +2,18 @@ import { useNavigate } from "react-router"
 import { useSelector } from "react-redux"
 
 const RecipeCard = ({ meal }) => {
-    const imgSrc = "https://www.themealdb.com/images/media/meals/wyxwsp1486979827.jpg"
     const recipeType = 'veg'
     const navigate = useNavigate()
     const authState = useSelector(state => state.auth)
+
     const handleClick = () => {
         navigate(`/recipedetails/${meal.idMeal}`, {
             state: {
                 meal: meal
             }
         })
-
     }
+
     return (
         <div id="parent-container" className="flex flex-col w-90 shadow-lg bg-white rounded-xl ">
             <div id="image-container" className="overflow-hidden h-40 flex justify-center mt-4">
