@@ -7,9 +7,10 @@ function LoginPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  // added domain with https to fetch url
   const { mutateAsync, isError, error, data } = useMutation({
     mutationFn: async (loginCreds) => {
-      const signInResponse = await fetch(`http://13.54.140.29/auth/signIn`, {
+      const signInResponse = await fetch(`https://api.recipeappbyloki.in/auth/signIn`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginCreds),
@@ -34,7 +35,7 @@ function LoginPage() {
       loginCreds[key] = value
     }
     mutateAsync(loginCreds)
-    console.log("data" + data)
+    // console.log("data" + data)
   }
 
   return (
