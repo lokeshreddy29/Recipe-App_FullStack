@@ -7,7 +7,7 @@ const useRecipeSave = () => {
   return useMutation({
     mutationFn: async (mealInfo) => {
       const saveApiResponse = await fetch(
-        `http://13.54.140.29/api/saveCommunityRecipe`,
+        `https://api.recipeappbyloki.in/api/saveCommunityRecipe`,
         {
           method: "POST",
           headers: {

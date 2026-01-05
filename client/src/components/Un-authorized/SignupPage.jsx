@@ -9,7 +9,7 @@ function SignUp() {
 
   const { mutateAsync, isError, error } = useMutation({
     mutationFn: async (user) => {
-      const signUpResponse = await fetch(`http://13.54.140.29/auth/createAccount`, {
+      const signUpResponse = await fetch(`https://api.recipeappbyloki.in/auth/createAccount`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
