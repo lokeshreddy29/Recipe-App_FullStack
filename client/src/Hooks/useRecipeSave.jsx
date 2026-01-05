@@ -7,7 +7,7 @@ const useRecipeSave = () => {
   return useMutation({
     mutationFn: async (mealInfo) => {
       const saveApiResponse = await fetch(
-        "http://localhost:3000/api/saveCommunityRecipe",
+        `http://13.54.140.29/api/saveCommunityRecipe`,
         {
           method: "POST",
           headers: {
@@ -19,7 +19,8 @@ const useRecipeSave = () => {
       )
 
       if(!saveApiResponse.ok) {
-        throw new Error("Failed to save recipe")
+        const err = await saveApiResponse.json()
+        throw new Error(err.message)
       }
 
       return saveApiResponse.json()

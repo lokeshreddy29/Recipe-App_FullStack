@@ -12,7 +12,7 @@ const RecipeDetails = () => {
   const yCoord = 0
   
   // custom hooks
-  const { mutateAsync } = useRecipeSave()
+  const { mutateAsync, isError, isLoading, error } = useRecipeSave()
   //
 
   // side effects
@@ -44,8 +44,15 @@ const RecipeDetails = () => {
       mealId: mealIdFromUrl,
       mealName: meal.strMeal,
     })
+    
   }
   //
+
+  if(isError) {
+    const parsed = JSON.stringify(error)
+    console.log(error)
+  }
+  
 
   return (
     <div className="mt-30 mb-10 text-autumn-leaves-4">
@@ -61,6 +68,7 @@ const RecipeDetails = () => {
         >
           Save this Recipe
         </button>
+        {(isError && !isLoading) ? (<h1 className="text-md text-autumn-compliment-dark my-2">You already saved this recipe</h1>) : null}
       </div>
       <div className="flex min-h-120 mx-20 bg-autumn-leaves-1 rounded-2xl">
         <div className="max-h-80 w-2/5 m-5 px-20 space-y-10">

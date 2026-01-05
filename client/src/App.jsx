@@ -25,12 +25,12 @@ function App() {
   const [searchTriggered, setsearchTriggered] = useState(true)
 
   // handling global logout
-  if(authState.userDets) {
+  if(authState?.userDets) {
     const jwtClaims = decodeJwt(authState.userDets?.AccessToken)
     const currentTimeInSeconds = Date.now() / 1000
 
-    console.log(currentTimeInSeconds)
-    console.log(jwtClaims.exp)
+    // console.log(currentTimeInSeconds)
+    // console.log(jwtClaims.exp)
 
     if(currentTimeInSeconds === jwtClaims.exp || currentTimeInSeconds > jwtClaims.exp) {
       dispatch(clearAccessInRedux())
@@ -41,7 +41,7 @@ function App() {
     <div className={`min-h-screen ${isAuthRoute ? 'bg-autumn-leaves-1' : 'bg-white'}`}>
       {!isAuthRoute && !authState.authDone ? (<Navigation className="scroll-auto" searchTriggered={searchTriggered} setsearchTriggered={setsearchTriggered} />) : null}
       {!isAuthRoute && authState.authDone ? (<ANavigation searchTriggered={searchTriggered} setsearchTriggered={setsearchTriggered} />) : null}
-      {/* {console.log("rdx" + JSON.stringify(authState.userDets))} */}
+      {console.log("rdx" + JSON.stringify(authState.userDets))}
       <Routes>
         <Route index element={<Home />} />
         <Route path='/login' element={<LoginPage /> } />

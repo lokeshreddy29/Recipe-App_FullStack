@@ -8,7 +8,7 @@ function useRecipe() {
     queryKey: ["user-recipes", authState.userDets?.UserID],
     queryFn: async () => {
       const getUserRecipesResponse = await fetch(
-        "http://localhost:3000/api/userRecipes",
+        `http://13.54.140.29/api/userRecipes`,
         {
           headers: {
             Authorization: `Bearer ${authState.userDets?.AccessToken}`,

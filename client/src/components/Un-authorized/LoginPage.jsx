@@ -4,13 +4,12 @@ import { useDispatch } from "react-redux"
 import { addUserDetailsToRedux } from "../../Redux/Slices/authSlice"
 
 function LoginPage() {
-  const api_base = "http://localhost:3000"
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const { mutateAsync, isError, error, data } = useMutation({
     mutationFn: async (loginCreds) => {
-      const signInResponse = await fetch(api_base + "/auth/signIn", {
+      const signInResponse = await fetch(`http://13.54.140.29/auth/signIn`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginCreds),

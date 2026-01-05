@@ -12,17 +12,18 @@ const MyRecipes = () => {
 
   // custom hooks
   const { data, isLoading } = useRecipe()
+  console.log(data)
   //
 
   // logic to know the count of user vs community recipes
   const userRecipeCount = useMemo(() => {
     if (!data) return 0
-    return data.filter((r) => r.userRecipeBool).length
+    return data?.filter((r) => r.userRecipeBool).length
   }, [data])
 
   const communityRecipeCount = useMemo(() => {
     if (!data) return 0
-    return data.filter((r) => !r.userRecipeBool).length
+    return data?.filter((r) => !r.userRecipeBool).length
   }, [data])
   //
 
