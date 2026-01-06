@@ -27,8 +27,12 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
 
   useEffect(() => {
     if (!isFetched) return
-    if (!data?.meals) return
+    // if(!data.meals) return
     if (!searchTriggered) return
+    
+    if (!data?.meals) {
+      navigate(`/recipesearchresults/${searchQuery}`)
+    }
 
     navigate(`/recipesearchresults/${searchQuery}`, {
       state: {
@@ -37,38 +41,20 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
       },
     })
 
-    let previousScrollPosition = 0
-    let currentScrollPosition = 0
-
-    window.addEventListener("scroll", function (e) {
-      // Get the new Value
-      currentScrollPosition = window.pageYOffset
-
-      //Subtract the two and conclude
-      if (previousScrollPosition - currentScrollPosition < 0) {
-        setShow(false)
-      } else if (previousScrollPosition - currentScrollPosition > 0) {
-        setShow(true)
-      }
-
-      // Update the previous value
-      previousScrollPosition = currentScrollPosition
-    })
-
     setsearchTriggered(false)
   }, [searchTriggered, isSuccess, data, searchQuery, navigate])
 
   return (
     <nav id="navbar">
       <div
-        className={`h-16 ${
+        className={`h-20 ${
           isRecipePage ? "bg-white" : "bg-autumn-leaves-1"
-        } flex justify-between items-center p-5 font-normal shadow-lg`}
+        } flex justify-between items-center p-5 font-normal`}
       >
         {/* Logo */}
         <Link to="/">
           <h1
-            className={`text-3xl font-medium cursor:pointer
+            className={`text-4xl font-medium cursor:pointer
             ${isRecipePage ? "text-autumn-leaves-4" : "text-white"}`}
           >
             Recipe HUB
@@ -77,8 +63,8 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
 
         {/* Search Input field and search button */}
         <form onSubmit={handleSearchSubmit}>
-          <div className="flex justify-between items-center h-10 w-100 bg-autumn-leaves-2 rounded-full">
-            <div className="placeholder: ml-5 md:block hidden">
+          <div className="flex justify-between items-center h-13 w-120 bg-autumn-leaves-2 rounded-full">
+            <div className="placeholder: ml-5 md:block hidden text-xl">
               <input
                 name="searchQuery"
                 placeholder="Search for recipes"
@@ -90,9 +76,9 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
               className="bg-autumn-leaves-3 rounded-r-full h-full transition duration-100 ease-in
             hover:bg-autumn-leaves-4"
             >
-              <button type="submit" className=" cursor-pointer">
+              <button type="submit" className="cursor-pointer">
                 <svg
-                  className="fill-autumn-leaves-1 scale-60 mr-1"
+                  className="fill-autumn-leaves-1 scale-80 mr-1 mt-1.5"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 50 50"
                   width="50px"
@@ -114,7 +100,7 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
         <div className="flex gap-x-10">
           <Link to="/login">
             <button
-              className={`h-10 w-20 cursor-pointer  text-md rounded-md transition duration-300 ease-in-out 
+              className={`h-12 w-25 cursor-pointer text-lg rounded-md transition duration-300 ease-in-out 
               ${
                 isRecipePage
                   ? "text-autumn-leaves-4 hover:bg-autumn-leaves-1"
@@ -126,7 +112,7 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
           </Link>
           <Link to="/signup">
             <button
-              className={`h-10 w-20 cursor-pointer text-md rounded-md transition duration-300 ease-in-out
+              className={`h-12 w-25 cursor-pointer text-lg rounded-md transition duration-300 ease-in-out
               ${
                 isRecipePage
                   ? "text-autumn-leaves-4 bg-white hover:bg-autumn-leaves-1"

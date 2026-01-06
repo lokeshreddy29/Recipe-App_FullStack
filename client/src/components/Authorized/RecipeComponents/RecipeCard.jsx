@@ -15,18 +15,18 @@ const RecipeCard = ({ meal }) => {
     }
 
     return (
-        <div id="parent-container" className="flex flex-col w-90 shadow-lg bg-white rounded-xl ">
+        <div id="parent-container" className="flex flex-col w-100 shadow-lg bg-white rounded-xl">
             <div id="image-container" className="overflow-hidden h-40 flex justify-center mt-4">
                 <img src={meal.strMealThumb} className="w-10/11 h-full object-cover object-center rounded-t-md"/>
             </div>
-            <div id="text-container" className="w-full h-50 rounded-b-xl">
+            <div id="text-container" className="w-full h-60 rounded-b-xl flex flex-col space-y-5">
                 <div id="title-type-container" className="h-10 flex justify-between px-4 pt-3 overflow-hidden">
-                    <h1 className="w-70 text-xl text-autumn-leaves-2 font-medium overflow-hidden">{meal.strMeal}</h1>
+                    <h1 className="w-80 text-xl text-autumn-leaves-2 font-medium overflow-hidden">{meal.strMeal}</h1>
                     <ul className="list-disc">
                         <li className={`text-3xl ${meal.recipeCategory === 'veg' || !meal.recipeCategory ? "text-green-500" : "text-red-600"}`}> </li>
                     </ul>
                 </div>
-                <div id="details-container" className="flex flex-col text-[11px] px-4 items-center">
+                <div id="details-container" className="flex flex-col text-[13px] px-4 items-center">
                     <p className="mt-2">Prep & cook time - 30 mins | serves - 2</p>
                     <p className="mt-2">Main ingredients - pasta, mushrooms, shallets</p>
                     <p className="mt-2">Difficulty -</p>

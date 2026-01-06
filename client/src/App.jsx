@@ -41,16 +41,16 @@ function App() {
     <div className={`min-h-screen ${isAuthRoute ? 'bg-autumn-leaves-1' : 'bg-white'}`}>
       {!isAuthRoute && !authState.authDone ? (<Navigation className="scroll-auto" searchTriggered={searchTriggered} setsearchTriggered={setsearchTriggered} />) : null}
       {!isAuthRoute && authState.authDone ? (<ANavigation searchTriggered={searchTriggered} setsearchTriggered={setsearchTriggered} />) : null}
-      {console.log("rdx" + JSON.stringify(authState.userDets))}
+      {/* {console.log("rdx" + JSON.stringify(authState.userDets))} */}
       <Routes>
         <Route index element={<Home />} />
         <Route path='/login' element={<LoginPage /> } />
         <Route path='/signup' element={<SignUp /> } />
-        <Route path='/recipedetails/:mealid' element={<RecipeDetails />} />
         <Route path='/recipesearchresults/:searchquery' element={<RecipeSearchResults />} />
         <Route element={<ProtectedRoutes />}>
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/myrecipes' element={<MyRecipes /> } />
+          <Route path='/recipedetails/:mealid' element={<RecipeDetails />} />
         </Route>
       </Routes>
     </div>
