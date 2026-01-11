@@ -15,8 +15,8 @@ const RecipeSearchResults = () => {
                 </div>
                 <div className="flex flex-wrap justify-center pb-10 mx-40 mt-10">
                     {console.log(searchMeals)}
-                    {!searchMeals ? (<div>No meals found</div>) :
-                    searchMeals.map((meal, index) => {return <div key={index} className="scale-90"><RecipeCard meal={meal} /></div>})
+                    {!searchMeals ? (<div className="text-xl text-autumn-leaves-4">No meals found</div>) :
+                    searchMeals.map((meal, index) => {return <div key={index} className="scale-100 p-5"><RecipeCard meal={meal} /></div>})
                     }
                 </div>
             </div>

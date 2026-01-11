@@ -24,7 +24,7 @@ function Home() {
                 Welcome back, {authState.userDets?.UserName}
               </h1>
             ) : (
-              <h1 className="text-5xl ">Welcome to Recipe HUB</h1>
+              <h1 data-testid="vitest-hero-text" className="text-5xl ">Welcome to Recipe HUB</h1>
             )}
             <p className="text-3xl text-autumn-leaves-1 italic ml-2">
               Ready to share your recipes with the world ?
@@ -40,7 +40,7 @@ function Home() {
               </button>
             ) : (
               <Link to="/login">
-                <button
+                <button data-testid="vitest-login-button"
                   className="motion-preset-oscillate mt-10 p-5 rounded-xl ml-2 text-2xl text-white cursor-pointer bg-autumn-leaves-1 outline-0
             transition duration-300 ease-in-out hover:bg-white hover:text-autumn-compliment-dark hover:ring ring-autumn-compliment-dark"
                 >

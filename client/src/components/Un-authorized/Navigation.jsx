@@ -3,7 +3,7 @@ import useSearchMealApi from "../../Hooks/useSearchMealApi"
 import { useEffect, useState } from "react"
 
 function Navigation({ searchTriggered, setsearchTriggered }) {
-  const [searchQuery, setSearchQuery] = useState({})
+  const [searchQuery, setSearchQuery] = useState()
   const navigate = useNavigate()
   const location = useLocation()
   const isRecipePage =
@@ -47,13 +47,12 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
   return (
     <nav id="navbar">
       <div
-        className={`h-20 ${
-          isRecipePage ? "bg-white" : "bg-autumn-leaves-1"
-        } flex justify-between items-center p-5 font-normal`}
+        className={`h-20 bg-autumn-leaves-1 flex justify-between items-center p-5 font-normal`}
       >
         {/* Logo */}
         <Link to="/">
           <h1
+            data-testid="vitest-home-button"
             className={`text-4xl font-medium cursor:pointer
             ${isRecipePage ? "text-autumn-leaves-4" : "text-white"}`}
           >
