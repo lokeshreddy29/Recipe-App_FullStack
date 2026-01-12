@@ -1,106 +1,134 @@
-import { expect, test, describe } from 'vitest'
-import { screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import App from '../App'
-import renderWithProviders from './testUtils'
+import { expect, test, describe, vi } from "vitest"
+import { fireEvent, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import App from "../App"
+import renderWithProviders from "./testUtils"
+
+// mocking the use selector method from redux. For the remaining methods we are returning the originals
+vi.mock("react-redux", async () => {
+  const originals = await vi.importActual("react-redux")
+  return {
+    ...originals,
+    useSelector: vi.fn(),
+  }
+})
+
+// mocking decodeJWT from jose
+vi.mock("jose", () => ({
+  decodeJwt: vi.fn(() => ({
+    exp: Math.floor(Date.now() / 1000) + 1000,
+  })),
+}))
+
+import { useSelector } from "react-redux"
+
+// mock implementation for use selector
+useSelector.mockImplementation((selectorFn) =>
+  selectorFn({
+    auth: {
+      authDone: false,
+      userDets: {
+        UserName: "test",
+      },
+    },
+  })
+)
+
+// Tests
 
 describe("Home page component tests", () => {
-    test
-    ("hero text validation", () => {
-        renderWithProviders(<App />)
+  test("hero text validation", () => {
+    renderWithProviders(<App />)
 
-        // find
-        const heroText = screen.getByText(/Welcome to Recipe Hub/i)
-        const captionText = screen.getByText('Ready to share your recipes with the world ?')
+    // find
+    const heroText = screen.getByText(/Welcome to Recipe Hub/i)
+    const captionText = screen.getByText(
+      "Ready to share your recipes with the world ?"
+    )
 
-        // asser
-        expect
-        (heroText).toBeInTheDocument()
-        expect
-        (captionText).toBeInTheDocument()
-        expect
-        (heroText).toHaveTextContent(/Welcome/)
+    // asser
+    expect(heroText).toBeInTheDocument()
+    expect(captionText).toBeInTheDocument()
+    expect(heroText).toHaveTextContent(/Welcome/)
+  })
+
+  test("access your kitchen button validation", async () => {
+    renderWithProviders(<App />)
+
+    // find access your kitchen button
+    const accessKitchenButton = screen.getByRole("button", {
+      name: "Access your kitchen",
     })
 
-    test
-    ("access your kitchen button validation", async () => {
-        renderWithProviders(<App />)
+    // act on it
+    await userEvent.click(accessKitchenButton)
 
-        // find access your kitchen button
-        const accessKitchenButton = screen.getByRole("button", {name: "Access your kitchen"})
+    // assert
+    expect(await screen.findByText(/sign in/i)).toBeInTheDocument()
 
-        // act on it
-        await userEvent.click(accessKitchenButton)
-
-        // assert
-        expect
-        (await screen.findByText(/sign in/i)).toBeInTheDocument()
-
-        // find button to go back to home
-        const homeButton = screen.getByRole("button", {name: "Explore without an account"})
-
-        // act to go back to home
-        await userEvent.click(homeButton)
-
-        // assert to validate home redirection
-        expect
-        (screen.getByText(/welcome to recipe hub/i)).toBeInTheDocument()
+    // find button to go back to home
+    const homeButton = screen.getByRole("button", {
+      name: "Explore without an account",
     })
 
-    test
-    ("login button", async () => {
-        renderWithProviders(<App />)
+    // act to go back to home
+    await userEvent.click(homeButton)
 
-        // find
-        const loginButton = screen.getByRole("button", {name: 'Login'})
+    // assert to validate home redirection
+    expect(screen.getByText(/welcome to recipe hub/i)).toBeInTheDocument()
+  })
 
-        // assert
-        expect
-        (loginButton).toBeInTheDocument()
+  test("login button", async () => {
+    renderWithProviders(<App />)
 
-        // act
-        await userEvent.click(loginButton)
+    // find
+    const loginButton = screen.getByRole("button", { name: "Login" })
 
-        // assert
-        expect
-        (screen.getByText(/sign in/i)).toBeInTheDocument()
+    // assert
+    expect(loginButton).toBeInTheDocument()
 
-        // find button to go back to home
-        const homeButton = screen.getByRole("button", {name: "Explore without an account"})
+    // act
+    await userEvent.click(loginButton)
 
-        // act to go back to home
-        await userEvent.click(homeButton)
+    // assert
+    expect(screen.getByText(/sign in/i)).toBeInTheDocument()
 
-        // assert to validate home redirection
-        expect
-        (screen.getByText(/welcome to recipe hub/i)).toBeInTheDocument()
+    // find button to go back to home
+    const homeButton = screen.getByRole("button", {
+      name: "Explore without an account",
     })
 
-    test
-    ("sign up button", async () => {
-        renderWithProviders(<App />)
+    // act to go back to home
+    await userEvent.click(homeButton)
 
-        // find
-        const signUpButton = screen.getByRole("button", {name: "Signup"})
-        // assert
-        expect
-        (signUpButton).toBeInTheDocument()
+    // assert to validate home redirection
+    expect(screen.getByText(/welcome to recipe hub/i)).toBeInTheDocument()
+  })
 
-        // act
-        await userEvent.click(signUpButton)
+  test("sign up button", async () => {
+    renderWithProviders(<App />)
 
-        // assert redirection
-        expect
-        (screen.getByText(/create an account/i)).toBeInTheDocument()
+    // find
+    const signUpButton = screen.getByRole("button", { name: "Signup" })
+    // assert
+    expect(signUpButton).toBeInTheDocument()
 
-        // find button to go back to home
-        const homeButton = screen.getByRole("button", {name: "Explore without an account"})
+    // act
+    await userEvent.click(signUpButton)
 
-        // act to go back to home
-        await userEvent.click(homeButton)
+    // assert redirection
+    expect(screen.getByText(/create an account/i)).toBeInTheDocument()
 
-        // assert to validate home redirection
-        expect
-        (screen.getByText(/welcome to recipe hub/i)).toBeInTheDocument()
+    // find button to go back to home
+    const homeButton = screen.getByRole("button", {
+      name: "Explore without an account",
     })
+
+    // act to go back to home
+    await userEvent.click(homeButton)
+
+    // assert to validate home redirection
+    expect(screen.getByText(/welcome to recipe hub/i)).toBeInTheDocument()
+  })
+
 })
