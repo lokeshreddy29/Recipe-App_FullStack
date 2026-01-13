@@ -3,7 +3,8 @@ import * as jose from "jose"
 const authMiddleware = async (req, res, next) => {
   const token = await req.headers.authorization
   if(!token) res.status(403).json({message: "Access token not found"})
-
+  
+  // console.log(token)
   const tokenArray = token.split(' ')
   if(tokenArray[0] !== 'Bearer') res.status(403).json({message: "Invalid token"})
   

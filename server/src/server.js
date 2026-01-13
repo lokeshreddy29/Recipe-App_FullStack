@@ -1,4 +1,6 @@
+import 'dotenv/config'
 import express from 'express'
+import path from 'path'
 import cors from 'cors'
 import authRoutes from './routes/authRoutes.js'
 import apiRoutes from './routes/apiRoutes.js'
@@ -13,14 +15,19 @@ app.use(cors({
   credentials: true,
 }))
 app.use(express.json())
+// app.use(express.static(path.join(__dirname, 'dist')));
 //
 
 //Routes
+//  app.get('*', (req, res) => {
+//      res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+//    });
+app.get('/', (req, res) => {
+  res.send("Hello welcome to the server that's hosted onto an EC2 that is sitting behind an NGINX Reverse Proxy")
+})
 app.use('/auth', authRoutes)
 app.use('/api', apiRoutes)
 //
-
-
 
 
 app.listen(PORT, () => {
