@@ -5,7 +5,7 @@ const createAccount = async (req, res) => {
   const createAccountServiceResponse = await authServices.createAccount({ name, email, password })
 
   if(createAccountServiceResponse === null) res.status(409).json({ message: 'user already exists' })
-  if(createAccountServiceResponse) res.status(201).json({ accessToken: createAccountServiceResponse })
+  if(createAccountServiceResponse) res.status(201).json(createAccountServiceResponse)
 }
 
 const signIn = async (req, res) => {

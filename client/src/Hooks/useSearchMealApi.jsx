@@ -11,6 +11,7 @@ const useSearchMealApi = (searchQuery) => {
         },
         refetchOnWindowFocus: false,
         refetchOnMount: false,
+        enabled: !!searchQuery
     })
 }
 

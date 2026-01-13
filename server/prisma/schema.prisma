@@ -23,7 +23,8 @@ model User {
 }
 
 model Recipe {
-  idMeal                Int @id
+  id                    Int @id @default(autoincrement())
+  idMeal                Int
   strMeal               String
   recipeIngredients     String?
   recipeMeasurements    String?

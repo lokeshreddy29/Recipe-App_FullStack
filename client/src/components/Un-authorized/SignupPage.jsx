@@ -51,7 +51,7 @@ function SignUp() {
               {/* inputs for username, email and password */}
               <input
                 name="name"
-                id="username"
+                id="auth-input-fields"
                 type="text"
                 placeholder="Username"
                 required
@@ -59,7 +59,7 @@ function SignUp() {
               />
               <input
                 name="email"
-                id="email"
+                id="auth-input-fields"
                 type="email"
                 placeholder="Email"
                 required
@@ -67,7 +67,7 @@ function SignUp() {
               />
               <input
                 name="password"
-                id="password"
+                id="auth-input-fields"
                 type="password"
                 placeholder="Password"
                 required
@@ -95,7 +95,7 @@ function SignUp() {
 
             <div className="flex flex-col items-center">
               <p className="text-sm">Already have an account?</p>
-              <Link to="/">
+              <Link to="/login">
                 {" "}
                 <button className="text-md font-medium text-autumn-leaves-1 cursor-pointer ">
                   Sign In

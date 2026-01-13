@@ -10,12 +10,15 @@ const saveCommunityRecipe = async (req, res) => {
 
     const userIDFromToken = await req.userID
     const { mealId, mealName } = await req.body
-    console.log(req.body)
-    const idMeal = mealId
-    const strMeal = mealName
-    console.log(userIDFromToken)
     const saveCommunityRecipeApiResponse = await apiServices.saveCommunityRecipe({ userIDFromToken, mealId, mealName })
     console.log(saveCommunityRecipeApiResponse)
+
+    // if the user already saved the particular meal
+    if(saveCommunityRecipeApiResponse.status === 409)
+        res.status(saveCommunityRecipeApiResponse.status).json({ status: 409, message: saveCommunityRecipeApiResponse.message })
+    // if the recipe save is successful
+    if(saveCommunityRecipeApiResponse.status === 200)
+        res.status(saveCommunityRecipeApiResponse.status)
 }
 
 export default { getUserRecipes, saveCommunityRecipe }
