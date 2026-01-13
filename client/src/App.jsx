@@ -22,7 +22,7 @@ function App() {
   const authState = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
-  const [searchTriggered, setsearchTriggered] = useState(true)
+  const [searchTriggered, setsearchTriggered] = useState(false)
 
   // handling global logout
   if(authState?.userDets) {
