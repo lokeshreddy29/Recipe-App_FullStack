@@ -1,0 +1,27 @@
+name: Frontend tests
+
+run-name: Test feature branches with pre-defined Vitest tests
+
+# triggers
+on:
+  push:
+    branches: ["frontend_fixes", "Frontend_Tests"]
+  pull_request:
+    branches: ["frontend_fixes", "Frontend_Tests"]
+
+# jobs
+jobs:
+  Run-Tests:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.19.0'
+      - name: Install deps and run tests
+        working-directory: ./client
+        run: |
+          npm install
+          npm run test
