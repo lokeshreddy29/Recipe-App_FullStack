@@ -59,7 +59,7 @@ function Home() {
         </div>
       </div>
 
-      <div id="card-holder" className="bg-autumn-leaves-1 py-10 px-60 mt-20">
+      <div id="card-holder" className="bg-autumn-leaves-1 py-10 px-60 mt-20 pb-20">
         <div className="flex flex-col items-center">
           <h1 className="motion-preset-fade-lg text-autumn-leaves-3 text-6xl font-medium underline">
             Browse new recipes
