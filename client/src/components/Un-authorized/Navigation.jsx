@@ -11,7 +11,7 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
 
   const { data, refetch, isFetched, isSuccess } = useSearchMealApi(searchQuery)
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = async (e) => {
     const fData = {}
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -19,7 +19,7 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
       fData[key] = value
     }
     setSearchQuery(fData.searchQuery)
-    refetch()
+    await refetch()
     setsearchTriggered(true)
   }
 
@@ -27,19 +27,21 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
 
   useEffect(() => {
     if (!isFetched) return
-    // if(!data.meals) return
     if (!searchTriggered) return
-    
     if (!data?.meals) {
-      navigate(`/recipesearchresults/${searchQuery}`)
+      navigate(`/recipesearchresults/${searchQuery}`, {
+        state: {
+          searchQuery: searchQuery,
+        }
+      })
+    } else {
+      navigate(`/recipesearchresults/${searchQuery}`, {
+        state: {
+          meals: data.meals,
+          searchQuery: searchQuery,
+        },
+      })
     }
-
-    navigate(`/recipesearchresults/${searchQuery}`, {
-      state: {
-        meals: data.meals,
-        searchQuery: searchQuery,
-      },
-    })
 
     setsearchTriggered(false)
   }, [searchTriggered, isSuccess, data, searchQuery, navigate])
@@ -53,10 +55,9 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
         <Link to="/">
           <h1
             data-testid="vitest-home-button"
-            className={`text-4xl font-medium cursor:pointer
-            ${isRecipePage ? "text-autumn-leaves-4" : "text-white"}`}
+            className={"text-4xl font-medium cursor:pointer text-white"}
           >
-            Recipe HUB
+            Recipe HUB.
           </h1>
         </Link>
 
@@ -65,9 +66,10 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
           <div className="flex justify-between items-center h-13 w-120 bg-autumn-leaves-2 rounded-full">
             <div className="placeholder: ml-5 md:block hidden text-xl">
               <input
+                id="navbar-input-field"
                 name="searchQuery"
                 placeholder="Search for recipes"
-                className="outline-none"
+                className="outline-none text-autumn-leaves-4"
                 required
               />
             </div>
@@ -99,24 +101,16 @@ function Navigation({ searchTriggered, setsearchTriggered }) {
         <div className="flex gap-x-10">
           <Link to="/login">
             <button
-              className={`h-12 w-25 cursor-pointer text-lg rounded-md transition duration-300 ease-in-out 
-              ${
-                isRecipePage
-                  ? "text-autumn-leaves-4 hover:bg-autumn-leaves-1"
-                  : "text-white outline-1 outline-white hover:outline-autumn-compliment-dark"
-              }`}
+              className="h-12 w-25 cursor-pointer text-lg rounded-md transition duration-300 ease-in-out 
+              text-white outline-1 outline-white hover:outline-autumn-compliment-dark"
             >
               Login
             </button>
           </Link>
           <Link to="/signup">
             <button
-              className={`h-12 w-25 cursor-pointer text-lg rounded-md transition duration-300 ease-in-out
-              ${
-                isRecipePage
-                  ? "text-autumn-leaves-4 bg-white hover:bg-autumn-leaves-1"
-                  : "text-white bg-autumn-leaves-3 hover:bg-white hover:text-autumn-compliment-dark"
-              }`}
+              className="h-12 w-25 cursor-pointer text-lg rounded-md transition duration-300 ease-in-out
+              text-white bg-autumn-leaves-3 hover:bg-white hover:text-autumn-compliment-dark"
             >
               Signup
             </button>

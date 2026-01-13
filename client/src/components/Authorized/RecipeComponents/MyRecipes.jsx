@@ -1,10 +1,9 @@
-import { useState, useMemo } from "react"
+import { useMemo } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import useRecipe from "../../../Hooks/useRecipe"
 import useGetCommunityRecipeDetails from "../../../Hooks/useGetCommunityRecipeDetails"
 import RecipeCard from "./RecipeCard"
-import { useEffect } from "react"
 
 const MyRecipes = () => {
   const authState = useSelector((state) => state.auth)
@@ -49,14 +48,14 @@ const MyRecipes = () => {
   //
 
   return (
-    <div className="mt-30 text-black m-5 mx-20">
+    <div className="mt-30 text-black m-5 mx-60">
       <div>
         <div
           id="user-recipes"
           className="bg-autumn-leaves-1 rounded-xl p-10 my-5"
         >
           <div className="flex">
-            <h1 className="text-3xl mb-10">Your Recipes</h1>
+            <h1 className="text-3xl mb-10 underline text-autumn-leaves-4">Your Recipes</h1>
             <div>
               <button
                 onClick={() => navigate("/")}
@@ -85,7 +84,7 @@ const MyRecipes = () => {
           id="community-recipes"
           className="bg-autumn-leaves-1 rounded-xl p-10 my-5"
         >
-          <h1 className="text-3xl mb-10">Community Recipes</h1>
+          <h1 className="text-3xl mb-10 underline text-autumn-leaves-4">Community Recipes</h1>
           <div className="flex flex-wrap space-x-10 space-y-10 scale-100">
             {isLoading || recipesisLoading || !communityRecipeCount ? (
               "loading"

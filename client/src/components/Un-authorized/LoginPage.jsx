@@ -49,7 +49,7 @@ function LoginPage() {
             {/* inputs for email and password */}
             <input
               name="email"
-              id="email"
+              id="auth-input-fields"
               type="email"
               placeholder="Email"
               required
@@ -57,7 +57,7 @@ function LoginPage() {
             />
             <input
               name="password"
-              id="password"
+              id="auth-input-fields"
               type="password"
               placeholder="Password"
               required

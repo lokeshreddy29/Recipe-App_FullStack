@@ -28,3 +28,20 @@
   z-index: 1000;
 }
 
+/* Autofill styling */
+@layer base {
+  #navbar-input-field:-webkit-autofill,
+  #navbar-input-field:-webkit-autofill:hover,
+  #navbar-input-field:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #db9b3a inset !important;
+    -webkit-text-fill-color: #61441a !important;
+    caret-color: #000;
+  }
+
+  #auth-input-fields:-webkit-autofill,
+  #auth-input-fields:-webkit-autofill:hover,
+  #auth-input-fields:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #f3f4f6 inset !important;
+  }
+}
+
